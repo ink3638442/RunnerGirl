@@ -7,7 +7,9 @@ public class FloorGenerator : MonoBehaviour
 	[SerializeField]
 	GameObject floorPrefab;
 
-	float offsetFloor = 0;
+	float latestFloorX = 0;
+	float latestFloorY = 0;
+	float latestFloorZ = 0;
 
     // Use this for initialization
     void Start()
@@ -15,24 +17,28 @@ public class FloorGenerator : MonoBehaviour
 		for (int i = 0; i < 500; i++)
 		{
 			GameObject go = Instantiate(floorPrefab);
-			go.transform.position = new Vector3(0, offsetFloor, i);
-
-			if (RandomBool()) offsetFloor -= 0.2f;
+			go.transform.position = new Vector3(latestFloorX, latestFloorY, latestFloorZ);
+			
+			UpdateFloorY();
+			UpdateFloorZ();
 		}
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
 	/// <summary>
-	/// bool型の乱数を取得する
+	/// ランダムでオフセット実行、Yの位置をセット
 	/// </summary>
-	/// <returns>bool型の乱数</returns>
-	public static bool RandomBool()
+	void UpdateFloorY()
 	{
-		return Random.Range(0, 2) == 0;
+		int ran = Random.Range(0, 3);
+		if (ran == 0) latestFloorY -= 0.2f;
+	}
+
+	/// <summary>
+	/// Zの位置をセット
+	/// </summary>
+	void UpdateFloorZ()
+	{
+		latestFloorZ++;
 	}
 }
