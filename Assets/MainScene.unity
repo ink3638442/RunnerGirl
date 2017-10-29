@@ -186,8 +186,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c6417908655f4516a25e66b167f2df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorPrefab: {fileID: 1247107303439722, guid: 601dad262649f406e9f3297bcadd54ed,
-    type: 2}
+  floorPrefab:
+  - {fileID: 1247107303439722, guid: 601dad262649f406e9f3297bcadd54ed, type: 2}
+  - {fileID: 1407156701875808, guid: 19c5ff1b9091f4a96aa70c8b3f9b190b, type: 2}
+  - {fileID: 1139317511158444, guid: a38c68c17b6df44e0ac9557fb745e1fd, type: 2}
+  wallPrefab:
+  - {fileID: 1657476778685268, guid: 68d51c2db92464b079be61efc14d1cdc, type: 2}
+  - {fileID: 1307695440798642, guid: 373553efc6c9b4f99bb23d515a09ea36, type: 2}
+  - {fileID: 1540360739196678, guid: f9fc513c7ce62469ab02128911064121, type: 2}
 --- !u!4 &517779330
 Transform:
   m_ObjectHideFlags: 0

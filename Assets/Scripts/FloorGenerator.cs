@@ -5,7 +5,10 @@ using UnityEngine;
 public class FloorGenerator : MonoBehaviour
 {
 	[SerializeField]
-	GameObject floorPrefab;
+	GameObject[] floorPrefab;
+
+	[SerializeField]
+	GameObject[] wallPrefab;
 
 	int toralFloorNum = 500; // トータル作成数
 
@@ -26,6 +29,8 @@ public class FloorGenerator : MonoBehaviour
 			int createFloors = Random.Range(10, 20); // 一方向の作成数
 			for (int floor = 0; floor <= createFloors; floor++)
 			{
+				if (floor == createFloors / 2) CreateWall(); // 通路真ん中あたりで壁作成
+
 				CreateFloor();
 			}
 
@@ -39,7 +44,8 @@ public class FloorGenerator : MonoBehaviour
 	/// </summary>
 	void CreateFloor()
 	{
-		GameObject go = Instantiate(floorPrefab);
+		int index = Random.Range(0, 3);
+		GameObject go = Instantiate(floorPrefab[index]);
 
 		switch(direction)
 		{
@@ -66,6 +72,39 @@ public class FloorGenerator : MonoBehaviour
 		}
 
 		UpdateFloorY();
+	}
+
+	/// <summary>
+	/// 最新の位置で壁を作成する
+	/// </summary>
+	void CreateWall()
+	{
+		int index = Random.Range(0, 3);
+		GameObject go = Instantiate(wallPrefab[index]);
+
+		switch(direction)
+		{
+			case Direction.South:
+				go.transform.position = new Vector3(nextFloorX - 1, nextFloorY + 1, nextFloorZ);
+				go.transform.rotation = Quaternion.Euler(0, 90, 0);
+
+				break;
+			case Direction.North:
+				go.transform.position = new Vector3(nextFloorX - 1, nextFloorY + 1, nextFloorZ);
+				go.transform.rotation = Quaternion.Euler(0, 90, 0);
+
+				break;
+			case Direction.West:
+				go.transform.position = new Vector3(nextFloorX, nextFloorY + 1, nextFloorZ - 1);
+				go.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+				break;
+			case Direction.East:
+				go.transform.position = new Vector3(nextFloorX, nextFloorY + 1, nextFloorZ - 1);
+				go.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+				break;
+		}
 	}
 
 	/// <summary>
