@@ -7,15 +7,17 @@ public class FloorGenerator : MonoBehaviour
 	[SerializeField]
 	GameObject floorPrefab;
 
+	float offsetFloor = 0;
+
     // Use this for initialization
     void Start()
     {	
 		for (int i = 0; i < 500; i++)
 		{
 			GameObject go = Instantiate(floorPrefab);
-			go.transform.position = new Vector3(i, 0, 0);
+			go.transform.position = new Vector3(i, offsetFloor, 0);
 
-
+			if (RandomBool()) offsetFloor -= 0.2f;
 		}
     }
 
@@ -24,4 +26,13 @@ public class FloorGenerator : MonoBehaviour
     {
 
     }
+
+	/// <summary>
+	/// bool型の乱数を取得する
+	/// </summary>
+	/// <returns>bool型の乱数</returns>
+	public static bool RandomBool()
+	{
+		return Random.Range(0, 2) == 0;
+	}
 }
