@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-	[SerializeField]
-	Vector3 upDown_vec = new Vector3(0, 0, 3);
-
-	[SerializeField]
-	Vector3 leftRight_vec = new Vector3(3, 0, 0);
-
 	Animator animator;
 
     // Use this for initialization
@@ -22,9 +16,25 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (Input.GetKey(KeyCode.DownArrow)) transform.Translate(upDown_vec * Time.deltaTime);
-		if (Input.GetKey(KeyCode.UpArrow)) transform.Translate(-upDown_vec * Time.deltaTime);
-		if (Input.GetKey(KeyCode.LeftArrow)) transform.Translate(leftRight_vec * Time.deltaTime);
-		if (Input.GetKey(KeyCode.RightArrow)) transform.Translate(-leftRight_vec * Time.deltaTime);
+		if (Input.GetKey(KeyCode.DownArrow))
+		{
+			transform.rotation = Quaternion.Euler(0, 0, 0);
+			transform.Translate(Vector3.forward * 4 * Time.deltaTime);
+		}
+		if (Input.GetKey(KeyCode.UpArrow))
+		{
+			transform.rotation = Quaternion.Euler(0, -180, 0);
+			transform.Translate(Vector3.forward * 4 * Time.deltaTime);
+		}
+		if (Input.GetKey(KeyCode.LeftArrow))
+		{
+			transform.rotation = Quaternion.Euler(0, 90, 0);
+			transform.Translate(Vector3.forward * 4 * Time.deltaTime);
+		}
+		if (Input.GetKey(KeyCode.RightArrow))
+		{
+			transform.rotation = Quaternion.Euler(0, -90, 0);
+			transform.Translate(Vector3.forward * 4 * Time.deltaTime);
+		}
     }
 }
