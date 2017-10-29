@@ -7,26 +7,66 @@ public class FloorGenerator : MonoBehaviour
 	[SerializeField]
 	GameObject floorPrefab;
 
-	float latestFloorX = 0;
-	float latestFloorY = 0;
-	float latestFloorZ = 0;
+	int toralFloorNum = 500; // トータル作成数
 
-	enum Direction {South, North, West, East};
+	float nextFloorX = 0; // 次の床のX生成位置
+	float nextFloorY = 0; // 次の床のY生成位置
+	float nextFloorZ = 0; // 次の床のZ生成位置
+
+	enum Direction {South, North, West, East}; // 方向用変数
 	Direction direction = Direction.South;
 
     // Use this for initialization
     void Start()
     {	
-		for (int i = 0; i < 500; i++)
+		for (int num = 0; num < toralFloorNum;) // numの更新は下記に
 		{
-			GameObject go = Instantiate(floorPrefab);
-			go.transform.position = new Vector3(latestFloorX, latestFloorY, latestFloorZ);
-			
-			UpdateFloorY();
-			UpdateFloorZ();
+			DirectionChanger(); // 作成方向の決定
+
+			int createFloors = Random.Range(10, 20); // 一方向の作成数
+			for (int floor = 0; floor <= createFloors; floor++)
+			{
+				CreateFloor();
+			}
+
+			num += createFloors; // 現在までの全体作成数を更新
 		}
     }
 
+
+	/// <summary>
+	/// 最新の位置で床を作成する
+	/// </summary>
+	void CreateFloor()
+	{
+		GameObject go = Instantiate(floorPrefab);
+
+		switch(direction)
+		{
+			case Direction.South:
+				go.transform.position = new Vector3(nextFloorX, nextFloorY, nextFloorZ);
+				UpdateFloorZ();
+
+				break;
+			case Direction.North:
+				go.transform.position = new Vector3(nextFloorX, nextFloorY, nextFloorZ);
+				UpdateFloorZ();
+
+				break;
+			case Direction.West:
+				go.transform.position = new Vector3(nextFloorX, nextFloorY, nextFloorZ);
+				UpdateFloorX();
+
+				break;
+			case Direction.East:
+				go.transform.position = new Vector3(nextFloorX, nextFloorY, nextFloorZ);
+				UpdateFloorX();
+				
+				break;
+		}
+
+		UpdateFloorY();
+	}
 
 	/// <summary>
 	/// ランダムで TRUE または FALSE を返す
@@ -38,22 +78,36 @@ public class FloorGenerator : MonoBehaviour
 	}
 
 	/// <summary>
-	/// ランダムでオフセット実行、Yの位置をセット
+	/// 次回のX位置をセット
 	/// </summary>
-	void UpdateFloorY()
+	void UpdateFloorX()
 	{
-		int ran = Random.Range(0, 3);
-		if (ran == 0) latestFloorY -= 0.2f;
+		if (direction == Direction.West) nextFloorX++;
+		else                             nextFloorX--;
 	}
 
 	/// <summary>
-	/// Zの位置をセット
+	/// 次回のY位置をセット（ランダムでオフセット実行）
+	/// </summary>
+	void UpdateFloorY()
+	{
+		if (RandomBool()) nextFloorY -= 0.2f;
+	}
+
+	/// <summary>
+	/// 次回のZ位置をセット
 	/// </summary>
 	void UpdateFloorZ()
 	{
-		latestFloorZ++;
+		if (direction == Direction.South) nextFloorZ++;
+		else                              nextFloorZ--;
 	}
 
+
+	/// <summary>
+	/// <param>方向を変える 南,北 -> 西または東</param>
+	/// <param>方向を変える 西,東 -> 南または北</param>
+	/// </summary>
 	void DirectionChanger()
 	{
 		switch(direction)
