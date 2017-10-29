@@ -11,6 +11,9 @@ public class FloorGenerator : MonoBehaviour
 	float latestFloorY = 0;
 	float latestFloorZ = 0;
 
+	enum Direction {South, North, West, East};
+	Direction direction = Direction.South;
+
     // Use this for initialization
     void Start()
     {	
@@ -24,6 +27,15 @@ public class FloorGenerator : MonoBehaviour
 		}
     }
 
+
+	/// <summary>
+	/// ランダムで TRUE または FALSE を返す
+	/// </summary>
+	bool RandomBool()
+	{
+		int ran = Random.Range(0, 2);
+		return Random.Range(0, 2) == 0;
+	}
 
 	/// <summary>
 	/// ランダムでオフセット実行、Yの位置をセット
@@ -40,5 +52,32 @@ public class FloorGenerator : MonoBehaviour
 	void UpdateFloorZ()
 	{
 		latestFloorZ++;
+	}
+
+	void DirectionChanger()
+	{
+		switch(direction)
+		{
+			case Direction.South:
+				if (RandomBool()) direction = Direction.West;
+				else              direction = Direction.East;
+				
+				break;
+			case Direction.North:
+				if (RandomBool()) direction = Direction.West;
+				else              direction = Direction.East;
+
+				break;
+			case Direction.West:
+				if (RandomBool()) direction = Direction.South;
+				else              direction = Direction.South;
+
+				break;
+			case Direction.East:
+				if (RandomBool()) direction = Direction.South;
+				else              direction = Direction.North;
+
+				break;
+		}
 	}
 }
