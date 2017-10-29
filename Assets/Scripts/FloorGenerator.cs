@@ -15,7 +15,7 @@ public class FloorGenerator : MonoBehaviour
 		for (int i = 0; i < 500; i++)
 		{
 			GameObject go = Instantiate(floorPrefab);
-			go.transform.position = new Vector3(i, offsetFloor, 0);
+			go.transform.position = new Vector3(0, offsetFloor, i);
 
 			if (RandomBool()) offsetFloor -= 0.2f;
 		}
