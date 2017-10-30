@@ -10,7 +10,7 @@ public class FloorGenerator : MonoBehaviour
 	[SerializeField]
 	GameObject[] wallPrefab;
 
-	int toralFloorNum = 500; // トータル作成数
+	int toralFloorNum = 300; // トータル作成数
 
 	float nextFloorX = 0; // 次の床のX生成位置
 	float nextFloorY = 0; // 次の床のY生成位置
@@ -26,7 +26,7 @@ public class FloorGenerator : MonoBehaviour
 		{
 			DirectionChanger(); // 作成方向の決定
 
-			int createFloors = Random.Range(10, 20); // 一方向の作成数
+			int createFloors = Random.Range(10, 15); // 一方向の作成数
 			for (int floor = 0; floor <= createFloors; floor++)
 			{
 				if (floor == createFloors / 2) CreateWall(); // 通路真ん中あたりで壁作成
