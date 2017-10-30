@@ -10,7 +10,10 @@ public class FloorGenerator : MonoBehaviour
 	[SerializeField]
 	GameObject[] wallPrefab;
 
-	int toralFloorNum = 300; // トータル作成数
+	[SerializeField]
+	GameObject goalPrefab;
+
+	int toralFloorNum = 100; // トータル作成数
 
 	float nextFloorX = 0; // 次の床のX生成位置
 	float nextFloorY = 0; // 次の床のY生成位置
@@ -36,6 +39,8 @@ public class FloorGenerator : MonoBehaviour
 
 			num += createFloors; // 現在までの全体作成数を更新
 		}
+
+		CreateGoal();
     }
 
 
@@ -52,23 +57,23 @@ public class FloorGenerator : MonoBehaviour
 			case Direction.South:
 				go.transform.position = new Vector3(nextFloorX, nextFloorY, nextFloorZ);
 				UpdateFloorZ();
-
 				break;
+
 			case Direction.North:
 				go.transform.position = new Vector3(nextFloorX, nextFloorY, nextFloorZ);
 				UpdateFloorZ();
-
 				break;
+
 			case Direction.West:
 				go.transform.position = new Vector3(nextFloorX, nextFloorY, nextFloorZ);
 				UpdateFloorX();
-
 				break;
+
 			case Direction.East:
 				go.transform.position = new Vector3(nextFloorX, nextFloorY, nextFloorZ);
 				UpdateFloorX();
-				
 				break;
+
 		}
 
 		UpdateFloorY();
@@ -87,22 +92,48 @@ public class FloorGenerator : MonoBehaviour
 			case Direction.South:
 				go.transform.position = new Vector3(nextFloorX - 1, nextFloorY + 1, nextFloorZ);
 				go.transform.rotation = Quaternion.Euler(0, 90, 0);
-
 				break;
+
 			case Direction.North:
 				go.transform.position = new Vector3(nextFloorX - 1, nextFloorY + 1, nextFloorZ);
 				go.transform.rotation = Quaternion.Euler(0, 90, 0);
-
 				break;
+
 			case Direction.West:
 				go.transform.position = new Vector3(nextFloorX, nextFloorY + 1, nextFloorZ - 1);
 				go.transform.rotation = Quaternion.Euler(0, 0, 0);
-
 				break;
+
 			case Direction.East:
 				go.transform.position = new Vector3(nextFloorX, nextFloorY + 1, nextFloorZ - 1);
 				go.transform.rotation = Quaternion.Euler(0, 0, 0);
+				break;
+		}
+	}
 
+	/// <summary>
+	/// ゴールの設置 最後の進んでいる方向でゴールの向きを調整
+	/// </summary>
+	void CreateGoal()
+	{
+		GameObject go = Instantiate(goalPrefab);
+		switch(direction)
+		{
+			case Direction.South:
+				go.transform.position = new Vector3(nextFloorX - 1, nextFloorY, nextFloorZ);
+				go.transform.rotation = Quaternion.Euler(0, 90, 0);
+				break;
+
+			case Direction.North:
+				go.transform.position = new Vector3(nextFloorX, nextFloorY, nextFloorZ - 1);
+				break;
+
+			case Direction.West:
+				go.transform.position = new Vector3(nextFloorX + 2, nextFloorY, nextFloorZ - 1);
+				break;
+
+			case Direction.East:
+				go.transform.position = new Vector3(nextFloorX, nextFloorY, nextFloorZ - 1);
 				break;
 		}
 	}
@@ -154,22 +185,21 @@ public class FloorGenerator : MonoBehaviour
 			case Direction.South:
 				if (RandomBool()) direction = Direction.West;
 				else              direction = Direction.East;
-				
 				break;
+
 			case Direction.North:
 				if (RandomBool()) direction = Direction.West;
 				else              direction = Direction.East;
-
 				break;
+
 			case Direction.West:
 				if (RandomBool()) direction = Direction.South;
 				else              direction = Direction.South;
-
 				break;
+
 			case Direction.East:
 				if (RandomBool()) direction = Direction.South;
 				else              direction = Direction.North;
-
 				break;
 		}
 	}
