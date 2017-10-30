@@ -23,7 +23,7 @@ public class FallFloorController : MonoBehaviour
 	/// </summary>
 	IEnumerator SetFallBool()
 	{
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(0.3f);
 		isFall = true;
 	}
 
