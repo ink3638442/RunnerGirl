@@ -19,22 +19,22 @@ public class PlayerController : MonoBehaviour
 		if (Input.GetKey(KeyCode.DownArrow))
 		{
 			transform.rotation = Quaternion.Euler(0, 0, 0);
-			transform.Translate(Vector3.forward * 4 * Time.deltaTime);
+			transform.Translate(Vector3.forward * 3 * Time.deltaTime);
 		}
 		if (Input.GetKey(KeyCode.UpArrow))
 		{
 			transform.rotation = Quaternion.Euler(0, -180, 0);
-			transform.Translate(Vector3.forward * 4 * Time.deltaTime);
+			transform.Translate(Vector3.forward * 3 * Time.deltaTime);
 		}
 		if (Input.GetKey(KeyCode.LeftArrow))
 		{
 			transform.rotation = Quaternion.Euler(0, 90, 0);
-			transform.Translate(Vector3.forward * 4 * Time.deltaTime);
+			transform.Translate(Vector3.forward * 3 * Time.deltaTime);
 		}
 		if (Input.GetKey(KeyCode.RightArrow))
 		{
 			transform.rotation = Quaternion.Euler(0, -90, 0);
-			transform.Translate(Vector3.forward * 4 * Time.deltaTime);
+			transform.Translate(Vector3.forward * 3 * Time.deltaTime);
 		}
     }
 }
