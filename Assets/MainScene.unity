@@ -318,6 +318,7 @@ MonoBehaviour:
   - {fileID: 1307695440798642, guid: 373553efc6c9b4f99bb23d515a09ea36, type: 2}
   - {fileID: 1540360739196678, guid: f9fc513c7ce62469ab02128911064121, type: 2}
   goalPrefab: {fileID: 1316059843649484, guid: 78437f42c25f54d90b1c7112133f6362, type: 2}
+  floorGroup: {fileID: 1183337551}
   toralFloorNum: 100
 --- !u!4 &517779330
 Transform:

@@ -14,6 +14,9 @@ public class FloorGenerator : MonoBehaviour
 	GameObject goalPrefab;
 
 	[SerializeField]
+	GameObject floorGroup;
+
+	[SerializeField]
 	int toralFloorNum = 100; // トータル作成数
 
 	float nextFloorX = 0; // 次の床のX生成位置
@@ -53,7 +56,7 @@ public class FloorGenerator : MonoBehaviour
 	IEnumerator CreateFloor()
 	{
 		int index = Random.Range(0, 3);
-		GameObject go = Instantiate(floorPrefab[index]);
+		GameObject go = Instantiate(floorPrefab[index], Vector3.zero, Quaternion.identity, floorGroup.transform);
 
 		switch(direction)
 		{
@@ -90,7 +93,7 @@ public class FloorGenerator : MonoBehaviour
 	void CreateWall()
 	{
 		int index = Random.Range(0, 3);
-		GameObject go = Instantiate(wallPrefab[index]);
+		GameObject go = Instantiate(wallPrefab[index], Vector3.zero, Quaternion.identity, floorGroup.transform);
 
 		switch(direction)
 		{
@@ -121,7 +124,7 @@ public class FloorGenerator : MonoBehaviour
 	/// </summary>
 	void CreateGoal()
 	{
-		GameObject go = Instantiate(goalPrefab);
+		GameObject go = Instantiate(goalPrefab, Vector3.zero, Quaternion.identity, floorGroup.transform);
 		switch(direction)
 		{
 			case Direction.South:
