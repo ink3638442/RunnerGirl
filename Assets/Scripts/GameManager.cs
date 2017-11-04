@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
 	bool isGameOver  = false; // ゲームオーバー判定
 	bool isGameClear = false; // ゲームクリア判定
 
+	[SerializeField]
 	GameObject gameOverText;
+	[SerializeField]
 	GameObject gameClearText;
 
 	[SerializeField]
@@ -17,25 +19,13 @@ public class GameManager : MonoBehaviour
 
 	void Start()
     {
-		gameOverText  = GameObject.Find ("GameOver");
-		gameClearText = GameObject.Find ("GameClear");
-
 		Initialize();
     }
 
     // Update is called once per frame
     void Update()
     {
-		if (isGameOver)
-		{
-			GameOver();
-		}
-
-
-		if (isGameClear)
-		{
-			GameClear();
-		}
+		CheckGameStatus();
     }
 
 	/// <summary>
@@ -45,6 +35,12 @@ public class GameManager : MonoBehaviour
     {
         floorGenerator.GetComponent<FloorGenerator>().Generate();
     }
+
+	void CheckGameStatus()
+	{
+		if (isGameOver) GameOver();
+		if (isGameClear) GameClear();
+	}
 	
 
 	/// <summary>

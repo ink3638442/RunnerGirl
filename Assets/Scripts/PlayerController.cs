@@ -6,8 +6,12 @@ public class PlayerController : MonoBehaviour
 {
 	Animator animator;
 	
+	[SerializeField]
 	GameObject  gameManager;
 	GameManager gm;
+
+	[SerializeField]
+	int gameOverLine = -15;
 
     // Use this for initialization
     void Start()
@@ -15,7 +19,6 @@ public class PlayerController : MonoBehaviour
 		animator = GetComponent<Animator>();
 		animator.SetFloat("Run", 1.0f);
 
-		gameManager = GameObject.Find("GameManager");
 		gm = gameManager.GetComponent<GameManager>();
     }
 
@@ -40,9 +43,17 @@ public class PlayerController : MonoBehaviour
 			transform.Translate(Vector3.forward * 3 * Time.deltaTime);
 		}
 
-		if (transform.position.y < -15)
+		if (transform.position.y < gameOverLine)
 		{
 			gm.SetGameOverBool();
 		}
     }
+
+	void OnCollisionEnter(Collision collision)
+    {
+		if (collision.gameObject.tag == "Goal")
+		{
+			gm.SetGameClearBool();
+		}
+	}
 }
