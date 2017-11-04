@@ -13,6 +13,7 @@ public class FloorGenerator : MonoBehaviour
 	[SerializeField]
 	GameObject goalPrefab;
 
+	[SerializeField]
 	int toralFloorNum = 100; // トータル作成数
 
 	float nextFloorX = 0; // 次の床のX生成位置
@@ -22,8 +23,10 @@ public class FloorGenerator : MonoBehaviour
 	enum Direction {South, North, West, East}; // 方向用変数
 	Direction direction = Direction.South;
 
-    // Use this for initialization
-    void Start()
+    /// <summary>
+	/// 自動で床を作成する
+	/// </summary>
+    public void Generate()
     {	
 		for (int num = 0; num < toralFloorNum;) // numの更新は下記に
 		{
@@ -34,7 +37,7 @@ public class FloorGenerator : MonoBehaviour
 			{
 				if (floor == createFloors / 2) CreateWall(); // 通路真ん中あたりで壁作成
 
-				CreateFloor();
+				StartCoroutine(CreateFloor());
 			}
 
 			num += createFloors; // 現在までの全体作成数を更新
@@ -47,7 +50,7 @@ public class FloorGenerator : MonoBehaviour
 	/// <summary>
 	/// 最新の位置で床を作成する
 	/// </summary>
-	void CreateFloor()
+	IEnumerator CreateFloor()
 	{
 		int index = Random.Range(0, 3);
 		GameObject go = Instantiate(floorPrefab[index]);
@@ -77,6 +80,8 @@ public class FloorGenerator : MonoBehaviour
 		}
 
 		UpdateFloorY();
+
+		yield return null;
 	}
 
 	/// <summary>

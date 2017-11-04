@@ -12,10 +12,15 @@ public class GameManager : MonoBehaviour
 	GameObject gameOverText;
 	GameObject gameClearText;
 
+	[SerializeField]
+	GameObject floorGenerator;
+
 	void Start()
     {
 		gameOverText  = GameObject.Find ("GameOver");
 		gameClearText = GameObject.Find ("GameClear");
+
+		Initialize();
     }
 
     // Update is called once per frame
@@ -32,6 +37,15 @@ public class GameManager : MonoBehaviour
 			GameClear();
 		}
     }
+
+	/// <summary>
+    /// ゲーム初期化
+    /// </summary>
+    void Initialize()
+    {
+        floorGenerator.GetComponent<FloorGenerator>().Generate();
+    }
+	
 
 	/// <summary>
 	/// ゲームオーバー処理
